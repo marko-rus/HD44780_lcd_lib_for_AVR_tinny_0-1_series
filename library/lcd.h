@@ -2,6 +2,7 @@
  * lcd.h
  *
  * Author: marko-rus
+ * Порт библиотеки от Narod Stream (https://narodstream.ru/avr-urok-12-lcd-indikator-16x2-chast-5/) с небольшими дополнениями
  * Библиотека для управления lcd дисплеями на базе контролера HD44780
  */ 
 
@@ -9,7 +10,10 @@
 #ifndef LCD_H_
 #define LCD_H_
 
-#include "init.h"
+#define F_CPU 20000000
+#include <avr/io.h>
+#include <util/delay.h>
+
 #define LCDPORT PORTA
 #define CTRLPORT PORTB
 #define rs 1
@@ -25,7 +29,7 @@ void LCD_ini(void);
 void clearlcd(void);
 void str_lcd (char str1[]);
 void num_to_lcd (int val);
-void lcd_definechar(const uint8_t *pc, uint8_t char_code, uint8_t chy);
+void lcd_definechar(const uint8_t *charArray, uint8_t charIndex, uint8_t startIndex);
 void sendcharlcd(unsigned char c);
 void sendbyte(unsigned char c, unsigned char mode);
 

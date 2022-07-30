@@ -2,6 +2,7 @@
  * lcd.с
  *
  * Author: marko-rus
+ * Порт библиотеки от Narod Stream (https://narodstream.ru/avr-urok-12-lcd-indikator-16x2-chast-5/) с небольшими дополнениями
  * Библиотека для управления lcd дисплеями на базе контролера HD44780
  */ 
 
@@ -74,13 +75,14 @@ void num_to_lcd (int val)
 	sendcharlcd((val%10)+'0');
 }
 //---------------------------------------
-void lcd_definechar(const uint8_t *pc, uint8_t char_code, uint8_t chy)
+void lcd_definechar(const uint8_t *charArray, uint8_t charIndex, uint8_t startIndex)
 {
 	uint8_t a, ia;
-	a=(char_code<<3)|0x40;
-	for (ia=0; ia<8; ia++){
+	a=(charIndex<<3)|0x40;
+	for (ia=0; ia<8; ia++)
+	{
 		sendbyte(a++, 0);
-		sendcharlcd(pc[ia+chy]);
+		sendcharlcd(charArray[ia+startIndex]);
 	}
 }
 //---------------------------------------
